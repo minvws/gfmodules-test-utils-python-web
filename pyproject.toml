@@ -1,0 +1,70 @@
+[tool.poetry]
+name = "gfmodules-test-utils"
+version = "0.1.0"
+description = ""
+license = "EUPL-1.2"
+authors = ["Ministerie van Volksgezondheid, Welzijn en Sport"]
+repository = "https://github.com/minvws/gfmodules-test-utils-python-web"
+readme = "README.md"
+packages = [
+    { include = "app" },
+]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+uvicorn = "^0.40.0"
+fastapi = "^0.128"
+async-timeout = "5.0.1"
+mypy = "^1.19.1"
+pydantic-settings = "^2.12.0"
+inject = "^5.3.0"
+pycryptodome = "^3.23.0"
+pydantic = "^2.12.5"
+cryptography = "^46.0.5"
+cffi = "^2.0.0"
+pykcs11 = "^1.5.18"
+filelock = "^3.20.3"
+asn1crypto = "^1.5.1"
+validators = "^0.35.0"
+requests = "^2.32.5"
+pyoprf = "^0.9.3"
+jwcrypto = "^1.5.6"
+sqlalchemy = "^2.0.46"
+psycopg = "^3.3.2"
+puzi = { git = "https://github.com/minvws/puzi-python" }
+pyjwt = "^2.11.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^9.0.2"
+pytest-cov = "^7.0.0"
+pytest-mock = "^3.15.1"
+httpx = "^0.28.1"
+ruff = "^0.15.0"
+codespell = "^2.2.6"
+types-requests = "^2.32.4.20260107"
+pip-audit = "^2.10.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.ruff]
+cache-dir = "~/.cache/ruff"
+include = [
+    "pyproject.toml",
+    "app/*.py",
+    "tests/*.py",
+]
+
+[tool.mypy]
+files = "app,tests"
+python_version = "3.11"
+strict = true
+cache_dir = "~/.cache/mypy"
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+cache_dir = "~/.cache/pytest"
+testpaths = [
+    "tests",
+]
