@@ -1,0 +1,8 @@
+__pycache__
+.venv
+*.conf
+*.cert
+*.crt
+*.key
+*.csr
+*.pem
