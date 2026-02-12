@@ -6,10 +6,10 @@ swagger_enabled = True
 docs_url = /docs
 redoc_url = /redocs
 host = 0.0.0.0
-port = 8000
+port = 8080
 reload = True
 
 use_ssl = False
-ssl_base_dir = secrets/ssl
-ssl_cert_file = server.cert
-ssl_key_file = server.key
+ssl_base_dir =
+ssl_cert_file =
+ssl_key_file =

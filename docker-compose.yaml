@@ -11,4 +11,4 @@ services:
     volumes:
       - ./:/src
     ports:
-      - 6510:8000
+      - 6510:8080
