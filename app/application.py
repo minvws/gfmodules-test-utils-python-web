@@ -6,7 +6,10 @@ from fastapi import FastAPI
 
 from app.config import get_config
 from app.routers.default import router as default_router
+from app.routers.headers import router as headers_router
 from app.routers.health import router as health_router
+from app.routers.httpstatus import router as httpstatus_router
+from app.routers.x509 import router as x509_router
 
 
 def get_uvicorn_params() -> dict[str, Any]:
@@ -78,6 +81,9 @@ def setup_fastapi() -> FastAPI:
     public_routers = [
         default_router,
         health_router,
+        headers_router,
+        httpstatus_router,
+        x509_router,
     ]
     for router in public_routers:
         fastapi.include_router(router)

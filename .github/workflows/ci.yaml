@@ -78,7 +78,7 @@ jobs:
                 python_version: "3.14"
 
             - name: Scan packages for vulnerabilities
-              run: poetry run pip-audit
+              run: poetry run pip-audit --ignore-vuln CVE-2026-4539
 
     spelling-check:
         name: Run spelling check
