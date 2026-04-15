@@ -9,6 +9,7 @@ from app.routers.default import router as default_router
 from app.routers.headers import router as headers_router
 from app.routers.health import router as health_router
 from app.routers.httpstatus import router as httpstatus_router
+from app.routers.oin_cert import router as oin_cert_router
 from app.routers.x509 import router as x509_router
 
 
@@ -84,6 +85,7 @@ def setup_fastapi() -> FastAPI:
         headers_router,
         httpstatus_router,
         x509_router,
+        oin_cert_router,
     ]
     for router in public_routers:
         fastapi.include_router(router)

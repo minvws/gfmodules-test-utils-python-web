@@ -13,3 +13,6 @@ use_ssl = False
 ssl_base_dir =
 ssl_cert_file =
 ssl_key_file =
+
+[ca]
+oin_ca_dir = secrets/ca
