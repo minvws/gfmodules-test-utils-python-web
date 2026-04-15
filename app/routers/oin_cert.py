@@ -30,7 +30,7 @@ class OinCertResponse(BaseModel):
     private_key: str
 
 
-@router.post("/oin-cert", response_model=OinCertResponse)
+@router.post("/oin-cert")
 def create_oin_cert(body: OinCertRequest) -> OinCertResponse:
     config = get_config()
     ca_base = config.ca.oin_ca_dir
