@@ -38,9 +38,14 @@ class ConfigUvicorn(BaseModel):
     ssl_key_file: str | None = Field(default=None)
 
 
+class ConfigCa(BaseModel):
+    oin_ca_dir: str = Field(default="secrets/ca")
+
+
 class Config(BaseModel):
     app: ConfigApp
     uvicorn: ConfigUvicorn
+    ca: ConfigCa = Field(default_factory=ConfigCa)
 
 
 def read_ini_file(path: str) -> Any:
