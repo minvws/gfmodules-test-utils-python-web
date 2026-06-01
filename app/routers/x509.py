@@ -10,7 +10,7 @@ router = APIRouter()
 
 
 def _format_name(name: x509.Name) -> dict[str, str]:
-    return {attr.oid._name: attr.value for attr in name}
+    return {attr.oid._name: str(attr.value) for attr in name}
 
 
 def _format_datetime(dt: datetime) -> str:
