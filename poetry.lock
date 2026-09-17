@@ -123,18 +123,6 @@ files = [
 ]
 
 [[package]]
-name = "async-timeout"
-version = "5.0.1"
-description = "Timeout context manager for asyncio programs"
-optional = false
-python-versions = ">=3.8"
-groups = ["main"]
-files = [
-    {file = "async_timeout-5.0.1-py3-none-any.whl", hash = "sha256:39e3809566ff85354557ec2398b55e096c8364bacac9405a7a1fa429e77fe76c"},
-    {file = "async_timeout-5.0.1.tar.gz", hash = "sha256:d9321a7a3d5a6a5e187e824d2fa0793ce379a202935782d555d6e9d2735677d3"},
-]
-
-[[package]]
 name = "ble-serial"
 version = "3.0.0"
 description = "Connects BLE adapters with virtual serial ports"
@@ -1886,21 +1874,6 @@ files = [
 windows-terminal = ["colorama (>=0.4.6)"]
 
 [[package]]
-name = "pyjwt"
-version = "2.13.0"
-description = "JSON Web Token implementation in Python"
-optional = false
-python-versions = ">=3.9"
-groups = ["main"]
-files = [
-    {file = "pyjwt-2.13.0-py3-none-any.whl", hash = "sha256:66adcc2aff09b3f1bbd95fc1e1577df8ac8723c978552fd43304c8a290ac5728"},
-    {file = "pyjwt-2.13.0.tar.gz", hash = "sha256:41571c89ca91598c79e8ef18a2d07367d4810fbbd6f637794879baf1b7703423"},
-]
-
-[package.extras]
-crypto = ["cryptography (>=3.4.0)"]
-
-[[package]]
 name = "pykcs11"
 version = "1.5.20"
 description = "A Full PKCS#11 wrapper for Python"
@@ -2919,4 +2892,4 @@ all = ["winrt-Windows.Foundation.Collections[all] (>=3.2.1.0,<3.3.0.0)", "winrt-
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.11"
-content-hash = "96fd6c711c0267507345a261ef95d04b2ff066e8f23dcc17b84e797d2aa97c86"
+content-hash = "4495aaab563e368fc96bf31523a20e621d2c05e7b2108ec9d48994049801879a"
