@@ -47,9 +47,13 @@ def create_oin_cert(body: OinCertRequest) -> OinCertResponse:
         )
     except FileNotFoundError as e:
         logger.error("CA file not found: %s", e)
-        raise HTTPException(status_code=500, detail="CA certificate or key not found") from e
+        raise HTTPException(
+            status_code=500, detail="CA certificate or key not found"
+        ) from e
     except Exception as e:
         logger.error("Certificate generation failed: %s", e)
-        raise HTTPException(status_code=500, detail="Failed to generate certificate") from e
+        raise HTTPException(
+            status_code=500, detail="Failed to generate certificate"
+        ) from e
 
     return OinCertResponse(certificate=cert_pem, private_key=key_pem)

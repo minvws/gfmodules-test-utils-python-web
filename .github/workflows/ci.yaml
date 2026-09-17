@@ -33,9 +33,9 @@ jobs:
         with:
           python_version: "3.14"
       - name: Lint
-        run: poetry run ruff check --select E4,E7,E9,F,I,Q
-      - name: Lint
-        run: poetry run ruff check --select E4,E7,E9,F,I,Q
+        run: poetry run ruff check
+      - name: Lint (ruff format)
+        run: poetry run ruff format --diff
   type-check:
     name: Check static types
     runs-on: ubuntu-24.04
@@ -104,7 +104,7 @@ jobs:
       - name: install liboprf
         run: |
           sudo apt install -y libsodium-dev
-          git clone --depth 1 --branch v0.9.3 https://github.com/stef/liboprf.git
+          git clone --depth 1 --branch v0.9.4 https://github.com/stef/liboprf.git
           cd liboprf/src
           make
           sudo make install
