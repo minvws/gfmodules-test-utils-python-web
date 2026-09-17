@@ -32,9 +32,15 @@ def _format_extensions(cert: x509.Certificate) -> list[dict[str, object]]:
             elif isinstance(value, x509.KeyUsage):
                 usage = []
                 for attr in [
-                    "digital_signature", "content_commitment", "key_encipherment",
-                    "data_encipherment", "key_agreement", "key_cert_sign",
-                    "crl_sign", "encipher_only", "decipher_only",
+                    "digital_signature",
+                    "content_commitment",
+                    "key_encipherment",
+                    "data_encipherment",
+                    "key_agreement",
+                    "key_cert_sign",
+                    "crl_sign",
+                    "encipher_only",
+                    "decipher_only",
                 ]:
                     try:
                         if getattr(value, attr):
@@ -50,7 +56,9 @@ def _format_extensions(cert: x509.Certificate) -> list[dict[str, object]]:
                 entry["value"] = value.key_identifier.hex()
             elif isinstance(value, x509.AuthorityKeyIdentifier):
                 entry["value"] = {
-                    "key_identifier": value.key_identifier.hex() if value.key_identifier else None,
+                    "key_identifier": value.key_identifier.hex()
+                    if value.key_identifier
+                    else None,
                     "authority_cert_serial_number": value.authority_cert_serial_number,
                 }
             elif isinstance(value, x509.CRLDistributionPoints):
@@ -61,11 +69,16 @@ def _format_extensions(cert: x509.Certificate) -> list[dict[str, object]]:
                 entry["value"] = points
             elif isinstance(value, x509.AuthorityInformationAccess):
                 entry["value"] = [
-                    {"access_method": desc.access_method._name, "access_location": str(desc.access_location)}
+                    {
+                        "access_method": desc.access_method._name,
+                        "access_location": str(desc.access_location),
+                    }
                     for desc in value
                 ]
             elif isinstance(value, x509.CertificatePolicies):
-                entry["value"] = [str(policy.policy_identifier.dotted_string) for policy in value]
+                entry["value"] = [
+                    str(policy.policy_identifier.dotted_string) for policy in value
+                ]
             else:
                 entry["value"] = str(value)
         except Exception as e:
@@ -87,6 +100,7 @@ async def parse_x509(request: Request) -> dict[str, object]:
             cert = x509.load_pem_x509_certificate(text.encode())
         else:
             import base64
+
             cert = x509.load_der_x509_certificate(base64.b64decode(text))
     except Exception as e:
         raise HTTPException(status_code=400, detail=f"Failed to parse certificate: {e}")
@@ -106,10 +120,15 @@ async def parse_x509(request: Request) -> dict[str, object]:
         "not_valid_before": _format_datetime(cert.not_valid_before_utc),
         "not_valid_after": _format_datetime(cert.not_valid_after_utc),
         "signature_algorithm": cert.signature_algorithm_oid.dotted_string,
-        "signature_algorithm_name": cert.signature_hash_algorithm.name if cert.signature_hash_algorithm else None,
+        "signature_algorithm_name": cert.signature_hash_algorithm.name
+        if cert.signature_hash_algorithm
+        else None,
         "version": cert.version.name,
         "public_key": pub_key_info,
-        "fingerprint_sha256": cert.fingerprint(cert.signature_hash_algorithm.__class__()).hex()
-        if cert.signature_hash_algorithm else None,
+        "fingerprint_sha256": cert.fingerprint(
+            cert.signature_hash_algorithm.__class__()
+        ).hex()
+        if cert.signature_hash_algorithm
+        else None,
         "extensions": _format_extensions(cert),
     }
