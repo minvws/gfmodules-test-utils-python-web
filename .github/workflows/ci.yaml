@@ -34,6 +34,8 @@ jobs:
           python_version: "3.14"
       - name: Lint
         run: poetry run ruff check
+      - name: Lint (ruff format)
+        run: poetry run ruff format --diff
   type-check:
     name: Check static types
     runs-on: ubuntu-24.04
