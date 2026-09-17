@@ -171,11 +171,6 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Create version.json
-        run: |
-          RELEASE_VERSION="${GITHUB_REF#refs/*/}"
-          echo "RELEASE_VERSION=$RELEASE_VERSION" >> $GITHUB_ENV
-          echo "{ \"version\": \"${RELEASE_VERSION}\", \"git_ref\": \"$GITHUB_SHA\"}" > version.json
       - name: Extract metadata (tags, labels) for Docker
         id: meta
         uses: docker/metadata-action@dc802804100637a589fabce1cb79ff13a1411302 # v6.2.0
@@ -197,6 +192,8 @@ jobs:
             NEW_UID=${{ env.NEW_UID }}
             NEW_GID=${{ env.NEW_GID }}
             standalone=true
+            RELEASE_VERSION=${{ github.ref_name }}
+            GIT_SHA=${{ github.sha }}
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
         with:
@@ -239,3 +236,5 @@ jobs:
             NEW_UID=${{ env.NEW_UID }}
             NEW_GID=${{ env.NEW_GID }}
             standalone=true
+            RELEASE_VERSION=${{ github.ref_name }}
+            GIT_SHA=${{ github.sha }}

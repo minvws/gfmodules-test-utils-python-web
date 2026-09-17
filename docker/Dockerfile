@@ -88,7 +88,13 @@ COPY --chown=${APP_USER}:${APP_GROUP} --from=builder /usr/local/lib /usr/local/l
 
 # Copy application files
 COPY --chown=${APP_USER}:${APP_GROUP} app ${PROJECT_DIR}/app
-COPY --chown=${APP_USER}:${APP_GROUP} pyproject.toml poetry.lock version.json ${PROJECT_DIR}
+COPY --chown=${APP_USER}:${APP_GROUP} pyproject.toml poetry.lock ${PROJECT_DIR}
+
+# version.json is generated from build args so CI workspace artifacts never leak in
+ARG RELEASE_VERSION=dev
+ARG GIT_SHA=unknown
+RUN echo "{\"version\": \"${RELEASE_VERSION}\", \"git_ref\": \"${GIT_SHA}\"}" > ${PROJECT_DIR}/version.json \
+    && chown ${APP_USER}:${APP_GROUP} ${PROJECT_DIR}/version.json
 
 # Copy and set permissions on entrypoint scripts
 COPY --chmod=+x ./docker/init-standalone.sh /usr/local/bin/
