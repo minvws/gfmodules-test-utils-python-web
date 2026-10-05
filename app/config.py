@@ -3,7 +3,7 @@ import os
 from enum import Enum
 from typing import Any
 
-from pydantic import BaseModel, Field, ValidationError
+from pydantic import BaseModel, Field
 
 _PATH = "app.conf"
 _ENVIRONMENT_CONFIG_PATH_NAME = "FASTAPI_CONFIG_PATH"
@@ -77,7 +77,6 @@ def set_config(config: Config) -> None:
 
 def get_config(path: str | None = None) -> Config:
     global _CONFIG
-    global _PATH
 
     if _CONFIG is not None:
         return _CONFIG
@@ -89,9 +88,6 @@ def get_config(path: str | None = None) -> Config:
     # a standard format for pydantic, we need to do some manual parsing first.
     ini_data = read_ini_file(path)
 
-    try:
-        _CONFIG = Config.model_validate(ini_data)
-    except ValidationError as e:
-        raise e
+    _CONFIG = Config.model_validate(ini_data)
 
     return _CONFIG

@@ -81,7 +81,7 @@ def _format_extensions(cert: x509.Certificate) -> list[dict[str, object]]:
                 ]
             else:
                 entry["value"] = str(value)
-        except Exception as e:
+        except (ValueError, TypeError, AttributeError) as e:
             entry["value"] = f"<could not parse: {e}>"
         result.append(entry)
     return result
@@ -102,15 +102,15 @@ async def parse_x509(request: Request) -> dict[str, object]:
             import base64
 
             cert = x509.load_der_x509_certificate(base64.b64decode(text))
-    except Exception as e:
+    except ValueError as e:
         raise HTTPException(status_code=400, detail=f"Failed to parse certificate: {e}")
 
     pub_key = cert.public_key()
     pub_key_info: dict[str, object] = {"algorithm": type(pub_key).__name__}
     try:
         pub_key_info["pem"] = pub_key.public_bytes(Encoding.PEM).decode()  # type: ignore
-    except Exception:
-        pass
+    except ValueError as e:
+        logger.info("Public key could not be encoded as PEM: %s", e)
 
     return {
         "subject": _format_name(cert.subject),
