@@ -86,6 +86,9 @@ RUN ldconfig
 # Copy Lib packages
 COPY --chown=${APP_USER}:${APP_GROUP} --from=builder /usr/local/lib /usr/local/lib
 
+# remove the base image's pip; the runtime image never installs packages
+RUN python -m pip uninstall -y pip
+
 # Copy application files
 COPY --chown=${APP_USER}:${APP_GROUP} app ${PROJECT_DIR}/app
 COPY --chown=${APP_USER}:${APP_GROUP} pyproject.toml poetry.lock ${PROJECT_DIR}
